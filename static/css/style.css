@@ -3,6 +3,10 @@ body {
     color: #ffffff;
 }
 
+.mr-10{
+    margin-right: 10px;
+}
+
 #codeEditor,
 #lineCounter {
     font-family: monospace;

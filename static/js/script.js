@@ -5,11 +5,12 @@ const codeEditors = document.getElementById('codeEditor');
 var lineCounter = document.getElementById('lineCounter');
 
 
-
 var offCanvasClose = document.querySelector('.btn-close');
 offCanvasClose.onclick = function (e) {
     e.target.parentNode.parentNode.classList.remove('show');
 }
+
+
 
 
 function getSelectedText() {
@@ -37,22 +38,13 @@ async function fetchMeaningJSON(selectedText) {
 
 
 function renderMeaning(word_details) {
-    document.getElementById('word-types').innerHTML = '';
 
 
     word_details = word_details[0];
     let meanings = word_details.meanings;
 
-    var i = 1;
-    let html_js = ``;
-    meanings.map(value => {
-        console.log(value);
-        html_js += `<li ${(i == 1) ? 'class="active"' : ''}>
-                        <label data-id="${i}" for="opt1">${value.partOfSpeech}</label>
-                    </li>`;
-        i++;
-    });
-    document.getElementById('word-types').innerHTML = html_js;
+
+    renderPartsOfSpeech(meanings);
 
 
     document.getElementById('offcanvasBottom').classList.add('show');
@@ -60,6 +52,79 @@ function renderMeaning(word_details) {
 
 }
 
+
+function renderPartsOfSpeech(meanings) {
+    document.getElementById('word-types').innerHTML = '';
+
+
+    var i = 0;
+    let html_part_of_speech, html_small_info;
+    meanings.map(value => {
+        html_part_of_speech += `<li data-id="${i}" class="partofspeech-btn ${(i == 0) ? 'active' : ''}">
+                        <label for="opt1">${value.partOfSpeech}</label>
+                    </li>`;
+
+        if (i == 0)
+            html_small_info += `<h1>${value.partOfSpeech}</h1>`;
+
+
+        var antonyms = value.antonyms;
+        html_small_info += antonyms.map(antonym => `<a class="btn btn-sm btn-outline-danger mr-10">${antonym}</a>`).join("");
+
+
+        var synonyms = value.synonyms;
+        html_small_info += synonyms.map(synonym => `<a class="btn btn-sm btn-outline-success mr-10">${synonym}</a>`).join("");
+
+
+        i++;
+
+    });
+
+    document.getElementById('word-types').innerHTML = html_part_of_speech;
+
+
+    partOfSpeechBtns = document.getElementsByClassName('partofspeech-btn');
+
+    for (let partOfSpeechBtn of partOfSpeechBtns) {
+        partOfSpeechBtn.addEventListener('click', function handleClick(event) {
+            console.log(event.target.dataset);
+            setPartOfSpeechContent(meanings, event.target.dataset.id, html_small_info);
+        });
+    }
+}
+
+
+
+function setPartOfSpeechContent(meanings, id, html_small_info) {
+    options = document.getElementsByClassName('options')[0];
+    options.innerHTML = `<div id="small-info">
+                           ${html_small_info}
+                        </div>
+                        <hr>
+                        `;
+
+
+    let definitions = meanings[id].definitions;
+    definitions.map(definition => {
+        options.innerHTML += `<p>${definition.definition}</p>`;
+        options.innerHTML += (definition.example) ? `<span class="text-muted">Eg: ${definition.example}</span>` : '';
+
+
+
+        var antonyms = definition.antonyms;
+        options.innerHTML += antonyms.map(antonym => `<a class="btn btn-sm btn-outline-danger mr-10">${antonym}</a>`).join("");
+
+
+        var synonyms = definition.synonyms;
+        options.innerHTML += synonyms.map(synonym => `<a class="btn btn-sm btn-outline-success mr-10">${synonym}</a>`).join("");
+
+
+
+        options.innerHTML += `<hr>`;
+    });
+
+
+}
 
 
 codeEditor.addEventListener('scroll', () => {
