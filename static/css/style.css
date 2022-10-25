@@ -3,21 +3,49 @@ body {
     color: #ffffff;
 }
 
-.mr-10{
+.mr-10 {
     margin-right: 10px;
 }
 
 
-.mt-10{
+.mt-10 {
     margin-top: 10px;
 }
 
 
-.mt-20{
+.mt-20 {
     margin-top: 20px;
 }
 
 
+.mt-30 {
+    margin-top: 30px;
+}
+
+.btn-add-textarea {
+    position: absolute;
+    top: .65rem;
+    left: 5.65rem;
+    z-index: 10;
+}
+
+.btn-rem-textarea {
+    position: absolute;
+    top: .65rem;
+    left: .65rem;
+    z-index: 10;
+}
+
+.btn-rsm {
+    display: block;
+    padding: .25rem .5rem;
+    font-size: .65em;
+    border: 1px solid;
+    border-bottom-color: currentcolor;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-radius: .25rem;
+}
 
 #codeEditor,
 #lineCounter {
@@ -103,7 +131,7 @@ body {
     resize: none;
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 40px;
+    padding-top: 50px;
     padding-bottom: 10px;
     -webkit-border-radius: 12px;
     border-radius: 12px;
@@ -124,32 +152,33 @@ body {
     right: 0; */
 }
 
-.btn-close{
+.btn-close {
     color: #ffffff;
     background-color: #282a3a;
     cursor: pointer;
 }
 
-.offcanvas-header{
-   position: absolute;
-   right: 0;
-}
-#offcanvasBottom{
-    background-color: #13141c;
-    overflow: auto;
-}
-
-#offCanvas-leftbar{
-    position: fixed;
-    left: 0;
-}
-
-#offCanvas-rightbar{
+.offcanvas-header {
     position: absolute;
     right: 0;
 }
 
-.offcanvas-body{
+#offcanvasBottom {
+    background-color: #13141c;
+    overflow: auto;
+}
+
+#offCanvas-leftbar {
+    position: fixed;
+    left: 0;
+}
+
+#offCanvas-rightbar {
+    position: absolute;
+    right: 0;
+}
+
+.offcanvas-body {
     margin-top: 5%;
 }
 
@@ -179,9 +208,9 @@ body {
 
 .tooltip-custom {
     border-bottom: 1px dotted black;
-  }
-  
-  .tooltip-custom .tooltiptext {
+}
+
+.tooltip-custom .tooltiptext {
     visibility: hidden;
     width: 120px;
     background-color: black;
@@ -189,21 +218,21 @@ body {
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
-  
+
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
-  }
+}
 
-  .tooltip-top {
+.tooltip-top {
     bottom: 125%;
     left: 50%;
     margin-left: -60px;
-  }
-  
-  .tooltip-custom:hover .tooltiptext {
+}
+
+.tooltip-custom:hover .tooltiptext {
     visibility: visible;
-  }
+}
 
 /* Tooltip */
 
@@ -224,67 +253,67 @@ body {
     left: 50%;
     bottom: 30px;
     font-size: 14px;
-  }
-  
-  #snackbar p {
+}
+
+#snackbar p {
     color: #fff !important;
-  }
-  
-  #snackbar.show {
+}
+
+#snackbar.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  }
-  
-  @-webkit-keyframes fadein {
+}
+
+@-webkit-keyframes fadein {
     from {
-      bottom: 0;
-      opacity: 0;
+        bottom: 0;
+        opacity: 0;
     }
-  
+
     to {
-      bottom: 30px;
-      opacity: 1;
+        bottom: 30px;
+        opacity: 1;
     }
-  }
-  
-  @keyframes fadein {
+}
+
+@keyframes fadein {
     from {
-      bottom: 0;
-      opacity: 0;
+        bottom: 0;
+        opacity: 0;
     }
-  
+
     to {
-      bottom: 30px;
-      opacity: 1;
+        bottom: 30px;
+        opacity: 1;
     }
-  }
-  
-  @-webkit-keyframes fadeout {
+}
+
+@-webkit-keyframes fadeout {
     from {
-      bottom: 30px;
-      opacity: 1;
+        bottom: 30px;
+        opacity: 1;
     }
-  
+
     to {
-      bottom: 0;
-      opacity: 0;
+        bottom: 0;
+        opacity: 0;
     }
-  }
-  
-  @keyframes fadeout {
+}
+
+@keyframes fadeout {
     from {
-      bottom: 30px;
-      opacity: 1;
+        bottom: 30px;
+        opacity: 1;
     }
-  
+
     to {
-      bottom: 0;
-      opacity: 0;
+        bottom: 0;
+        opacity: 0;
     }
-  }
-  
-  /* Snackbar toast */
+}
+
+/* Snackbar toast */
 
 
 
