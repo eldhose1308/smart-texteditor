@@ -25,11 +25,18 @@ body {
 .btn-add-textarea {
     position: absolute;
     top: .65rem;
-    left: 5.65rem;
+    left: 6.65rem;
     z-index: 10;
 }
 
 .btn-rem-textarea {
+    position: absolute;
+    top: .65rem;
+    left: 2.65rem;
+    z-index: 10;
+}
+
+.btn-index-textarea {
     position: absolute;
     top: .65rem;
     left: .65rem;
@@ -40,9 +47,6 @@ body {
     display: block;
     padding: .25rem .5rem;
     font-size: .65em;
-    border: 1px solid;
-    border-bottom-color: currentcolor;
-    border-bottom-style: solid;
     border-bottom-width: 1px;
     border-radius: .25rem;
 }
@@ -203,6 +207,12 @@ body {
     float: right;
 }
 
+
+
+#workspaces{
+    overflow: scroll;
+    height: 500px;
+}
 
 /* Tooltip */
 

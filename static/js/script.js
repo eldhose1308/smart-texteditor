@@ -186,6 +186,48 @@ imgUpload.addEventListener('submit', async (e) => {
 });
 
 
+function addWorkSpace(element) {
+    let workspace_html = `<div class="row mt-30">
+
+                            <div class="bd-clipboard">
+                                <button id="copyToClipboard" type="button" class="btn-clipboard tooltip-custom" title=""
+                                    data-bs-original-title="Copy to clipboard">Copy
+                                    <span class="tooltiptext tooltip-top">Copy to clipboard</span>
+                                </button>
+
+                                <a class="btn btn-rsm btn-index-textarea btn-primary">1</a>
+                                <a onclick="addWorkSpace(this)" class="btn btn-rsm btn-add-textarea btn-outline-success">Add</a>
+                                <a onclick="removeWorkSpace(this)" class="btn btn-rsm btn-rem-textarea btn-outline-danger">Remove</a>
+
+                            </div>
+
+                            <textarea placeholder="Text workspace" class="image-text" rows="4"></textarea>
+
+                            <br>
+                        </div>`;
+
+
+    element.parentElement.parentElement.insertAdjacentHTML("afterend", workspace_html);
+    // document.getElementById('workspaces').innerHTML += workspace_html;
+
+    resetTextareaCount();
+}
+
+function removeWorkSpace(element) {
+    if (document.getElementsByClassName('btn-index-textarea').length <= 3)
+        return;
+    element.parentElement.parentElement.remove();
+    resetTextareaCount();
+}
+
+
+function resetTextareaCount() {
+    let count_indexes = document.getElementsByClassName('btn-index-textarea');
+    for (var i = 0; i < count_indexes.length; i++) {
+        count_indexes[i].innerText = i + 1;
+    }
+}
+
 async function uploadImage(target) {
     const response = await fetch(target.action, {
         method: "POST",
