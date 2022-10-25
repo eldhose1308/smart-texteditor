@@ -28,22 +28,34 @@
             </p>
         </div>
 
-        <div id="right-col" class="col-md-3">
+        <div id="right-col" class="col-md-3 mt-20">
 
 
-            <form action="extract_text" enctype="multipart/form-data" method="post">
+            <form action="extract_text" id="img-upload" enctype="multipart/form-data" method="post">
 
-                <input type="file" name="photo" id="photo">
-                <input type="text" name="img-name" id="">
-                <button type="submit">Submit</button>
-                
+                <div class="input-group">
+                    <input type="file" class="form-control" name="photo" id="photo">
+                    <button class="btn btn-sm btn-primary" id="img-upload-btn" type="submit">Upload</button>
+                </div>
+
             </form>
-                
-            <div id="wrapper">
 
-                <textarea placeholder="Text of uploaded image" class="image-text" id="image-text" name="image-text"
-                    rows="4"></textarea>
+            <div id="wrapper" class="mt-10">
+
                 <br>
+                <div class="row">
+
+                    <div class="bd-clipboard">
+                        <button id="copyToClipboard" type="button" class="btn-clipboard tooltip-custom" title=""
+                            data-bs-original-title="Copy to clipboard">Copy
+                            <span class="tooltiptext tooltip-top">Copy to clipboard</span>
+                        </button>
+                    </div>
+
+                    <textarea placeholder="Text of uploaded image" class="image-text" id="image-text" name="image-text"
+                        rows="4"></textarea>
+                    <br>
+                </div>
 
             </div>
 
@@ -96,6 +108,9 @@
     </div>
     <!---Bottom OffCanvas-->
 
+
+    <div id="snackbar" class="">Message</div>
+
 </body>
 
 
@@ -114,7 +129,7 @@
     function autoResize() {
         this.style.height = 'auto';
 
-        if (this.scrollHeight > 500){
+        if (this.scrollHeight > 500) {
             this.style.height = 500 + 'px';
             return;
         }

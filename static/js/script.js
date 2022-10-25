@@ -3,6 +3,7 @@ const dictionary_api = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 const dictionary_loader = document.getElementById('dictionary-loader');
 const codeEditors = document.getElementById('codeEditor');
 var lineCounter = document.getElementById('lineCounter');
+var imgUpload = document.getElementById('img-upload');
 
 
 var offCanvasClose = document.querySelector('.btn-close');
@@ -140,7 +141,6 @@ function setPartOfSpeechContent(meanings, id, html_small_info) {
         options.innerHTML += synonyms.map(synonym => `<a class="btn btn-sm btn-outline-success mr-10">${synonym}</a>`).join("");
 
 
-
         options.innerHTML += `<hr>`;
     });
 
@@ -149,6 +149,65 @@ function setPartOfSpeechContent(meanings, id, html_small_info) {
 
 }
 
+
+function renderImageText(image_text) {
+    // console.log(image_text);
+    document.getElementById('image-text').value = image_text.message;
+    BottomToast(image_text.status_msg);
+}
+
+
+
+
+document.getElementById('copyToClipboard').addEventListener('click', (e) => {
+    e.preventDefault();
+    let copy_link = document.getElementById('image-text').value;
+    navigator.clipboard.writeText(copy_link);
+
+    var tooltiptext = e.target.querySelector('.tooltiptext');
+    tooltiptext.innerText = 'Copied to clipboard';
+    BottomToast('Copied to clipboard');
+
+
+    setTimeout(function () {
+        tooltiptext.innerText = 'Copy to clipboard';
+    }, 3000);
+
+
+});
+
+
+
+imgUpload.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    await uploadImage(e.target);
+
+});
+
+
+async function uploadImage(target) {
+    const response = await fetch(target.action, {
+        method: "POST",
+        body: new FormData(target)
+    });
+
+    if (!response.ok) {
+        BottomToast('Something went wrong,Please try again');
+        return;
+    }
+
+    const image_text = await response.json();
+    if (image_text.status != 200) {
+        BottomToast(image_text.status_msg);
+        return;
+    }
+
+    renderImageText(image_text);
+
+
+
+}
 
 codeEditor.addEventListener('scroll', () => {
     lineCounter.scrollTop = codeEditor.scrollTop;
@@ -193,3 +252,14 @@ function line_counter() {
 } codeEditor.addEventListener('input', () => {
     line_counter();
 });
+
+
+
+function BottomToast(message = 'Welcome !') {
+    document.getElementById('snackbar').classList.add("show");
+    document.getElementById('snackbar').innerText = message;
+
+    setTimeout(function () {
+        document.getElementById('snackbar').classList.remove("show");
+    }, 3000);
+}
