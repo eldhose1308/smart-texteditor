@@ -24,6 +24,8 @@ function getSelectedText() {
 
 
 async function fetchMeaningJSON(selectedText) {
+    document.getElementById('offcanvasBottom').classList.add('show');
+
     dictionary_loader.style.display = "block";
     const response = await fetch(dictionary_api + selectedText);
     if (!response.ok) {
@@ -47,25 +49,25 @@ function renderMeaning(word_details) {
     renderPartsOfSpeech(meanings);
 
 
-    document.getElementById('offcanvasBottom').classList.add('show');
     dictionary_loader.style.display = "none";
 
 }
 
 
-function renderPartsOfSpeech(meanings) {
+async function renderPartsOfSpeech(meanings) {
     document.getElementById('word-types').innerHTML = '';
 
 
     var i = 0;
-    let html_part_of_speech, html_small_info;
-    meanings.map(value => {
+    let html_part_of_speech = '', html_small_info = '';
+
+    Promise.all(meanings.map(value => {
         html_part_of_speech += `<li data-id="${i}" class="partofspeech-btn ${(i == 0) ? 'active' : ''}">
                         <label for="opt1">${value.partOfSpeech}</label>
                     </li>`;
 
         if (i == 0)
-            html_small_info += `<h1>${value.partOfSpeech}</h1>`;
+            html_small_info += `<h1 id="part-of-speech"></h1>`;
 
 
         var antonyms = value.antonyms;
@@ -78,24 +80,43 @@ function renderPartsOfSpeech(meanings) {
 
         i++;
 
+    })).then(() => {
+
+        document.getElementById('word-types').innerHTML = html_part_of_speech;
+
+
+        partOfSpeechBtns = document.getElementsByClassName('partofspeech-btn');
+
+        i = 0;
+        for (let partOfSpeechBtn of partOfSpeechBtns) {
+            partOfSpeechBtn.addEventListener('click', function handleClick(event) {
+                togglePartOfSpeechButtons(event.target);
+                setPartOfSpeechContent(meanings, event.target.dataset.id, html_small_info);
+
+            });
+
+            if (i == 0)
+                partOfSpeechBtn.click();
+            i++;
+
+        }
     });
 
-    document.getElementById('word-types').innerHTML = html_part_of_speech;
+}
 
-
+function togglePartOfSpeechButtons(current_btn) {
     partOfSpeechBtns = document.getElementsByClassName('partofspeech-btn');
 
     for (let partOfSpeechBtn of partOfSpeechBtns) {
-        partOfSpeechBtn.addEventListener('click', function handleClick(event) {
-            console.log(event.target.dataset);
-            setPartOfSpeechContent(meanings, event.target.dataset.id, html_small_info);
-        });
+        partOfSpeechBtn.classList.remove('active');
     }
+
+    current_btn.classList.add('active');
 }
 
-
-
 function setPartOfSpeechContent(meanings, id, html_small_info) {
+
+
     options = document.getElementsByClassName('options')[0];
     options.innerHTML = `<div id="small-info">
                            ${html_small_info}
@@ -122,6 +143,8 @@ function setPartOfSpeechContent(meanings, id, html_small_info) {
 
         options.innerHTML += `<hr>`;
     });
+
+    document.getElementById('part-of-speech').innerHTML = meanings[id].partOfSpeech;
 
 
 }

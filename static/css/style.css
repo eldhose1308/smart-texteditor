@@ -54,14 +54,62 @@ body {
     color: #ffffff;
 }
 
+
+.select-options {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.select-options li {
+    list-style: none;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid #282a3a;
+    width: 100%;
+
+}
+
+.select-options li.active {
+    background-color: #282a3a;
+
+}
+
+.select-options li label {
+    cursor: pointer;
+}
+
+
+.image-text {
+    width: 500px;
+    overflow: scroll;
+    background-color: #13141C;
+    color: #fff;
+    font-family: monospace;
+    font-weight: normal;
+    font-size: 17px;
+    resize: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+}
+
+
+
+
 #left-col {
     border-right: 1px solid #ffffff;
 }
 
 #right-col {
-    margin-left: 3%;
-    position: absolute;
-    right: 0;
+    margin-left: 2%;
+    /* position: absolute;
+    right: 0; */
 }
 
 .btn-close{

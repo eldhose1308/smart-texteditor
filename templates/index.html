@@ -30,13 +30,25 @@
 
         <div id="right-col" class="col-md-3">
 
-            <div id="dictionary-loader" class="dictionary-loader">
-                <div class="cell">
-                    <div class="pl pl-hourglass"></div>
-                </div>
+
+            <form action="extract_text" enctype="multipart/form-data" method="post">
+
+                <input type="file" name="photo" id="photo">
+                <input type="text" name="img-name" id="">
+                <button type="submit">Submit</button>
+                
+            </form>
+                
+            <div id="wrapper">
+
+                <textarea placeholder="Text of uploaded image" class="image-text" id="image-text" name="image-text"
+                    rows="4"></textarea>
+                <br>
+
             </div>
 
-            <input type="file" name="" id="">
+
+
         </div>
 
     </div>
@@ -54,14 +66,15 @@
         </div>
         <div class="offcanvas-body row" id="word-details">
 
+            <div id="dictionary-loader" class="dictionary-loader">
+                <div class="cell">
+                    <div class="pl pl-hourglass"></div>
+                </div>
+            </div>
 
             <div class="col-md-3" id="offCanvas-leftbar">
 
-                <h4 class="text-center">Hello</h4>
-
-                <ul class="select-options" id="word-types">
-
-                </ul>
+                <ul class="select-options" id="word-types"></ul>
 
             </div>
 
@@ -69,32 +82,6 @@
             <div class="col-md-9" id="offCanvas-rightbar">
 
                 <section class="options">
-                    <div class="content">
-                        <div id="small-info">
-                            <h1>Part of Speech</h1>
-                            <a class="btn btn-sm btn-outline-danger">Antonyms</a>
-                            <a class="btn btn-sm btn-outline-success">Synonym</a>
-                        </div>
-
-
-                        <p>
-                            You chose Option 1. That's super great.
-                        </p>
-                        <p>
-                            I hope this works out well for you.
-                        </p>
-                        <p>
-                            Strip steak short ribs swine ham hock, pork belly t-bone pork turducken filet mignon
-                            pancetta brisket jerky beef ribs tenderloin porchetta. Short ribs venison brisket doner,
-                            swine pancetta kielbasa turkey pig boudin spare ribs ham frankfurter. Rump kevin flank filet
-                            mignon short ribs tail pastrami meatloaf.
-                        </p>
-                        <p>
-                            Venison corned beef ham ribeye. Flank pig filet mignon tri-tip tenderloin ham tail salami
-                            spare ribs meatball tongue. Kielbasa strip steak pork belly jerky chuck tail capicola filet
-                            mignon meatloaf salami frankfurter boudin tongue ball tip corned beef.
-                        </p>
-                    </div>
                 </section>
 
             </div>
@@ -118,30 +105,24 @@
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 
-<style>
-    .select-options {
-        padding-left: 0;
-        margin-bottom: 0;
+
+<script>
+
+    textarea = document.querySelector("#image-text");
+    textarea.addEventListener('input', autoResize, false);
+
+    function autoResize() {
+        this.style.height = 'auto';
+
+        if (this.scrollHeight > 500){
+            this.style.height = 500 + 'px';
+            return;
+        }
+        this.style.height = this.scrollHeight + 'px';
     }
 
-    .select-options li {
-        list-style: none;
-        padding: .5rem 1rem;
-        font-size: 1rem;
-        cursor: pointer;
-        border: 1px solid #282a3a;
-        width: 100%;
 
-    }
+</script>
 
-    .select-options li.active {
-        background-color: #282a3a;
-
-    }
-
-    .select-options li label {
-        cursor: pointer;
-    }
-</style>
 
 </html>
