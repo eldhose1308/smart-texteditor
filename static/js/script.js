@@ -159,12 +159,13 @@ function renderImageText(image_text) {
 
 
 
-document.getElementById('copyToClipboard').addEventListener('click', (e) => {
-    e.preventDefault();
-    let copy_link = document.getElementById('image-text').value;
-    navigator.clipboard.writeText(copy_link);
+function copyToClipBoard(element) {
 
-    var tooltiptext = e.target.querySelector('.tooltiptext');
+    let copied_text = element.parentElement.parentElement.querySelector('.image-text').value;
+
+    navigator.clipboard.writeText(copied_text);
+
+    var tooltiptext = element.querySelector('.tooltiptext');
     tooltiptext.innerText = 'Copied to clipboard';
     BottomToast('Copied to clipboard');
 
@@ -174,14 +175,16 @@ document.getElementById('copyToClipboard').addEventListener('click', (e) => {
     }, 3000);
 
 
-});
+}
 
 
 
 imgUpload.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    loading_btn('img-upload-btn');
     await uploadImage(e.target);
+    loading_btn();
 
 });
 
@@ -190,7 +193,7 @@ function addWorkSpace(element) {
     let workspace_html = `<div class="row mt-30">
 
                             <div class="bd-clipboard">
-                                <button id="copyToClipboard" type="button" class="btn-clipboard tooltip-custom" title=""
+                                <button  onclick="copyToClipBoard(this)" id="copyToClipboard" type="button" class="btn-clipboard tooltip-custom" title=""
                                     data-bs-original-title="Copy to clipboard">Copy
                                     <span class="tooltiptext tooltip-top">Copy to clipboard</span>
                                 </button>
@@ -201,7 +204,7 @@ function addWorkSpace(element) {
 
                             </div>
 
-                            <textarea placeholder="Text workspace" class="image-text" rows="4"></textarea>
+                            <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text" rows="4"></textarea>
 
                             <br>
                         </div>`;
@@ -304,4 +307,25 @@ function BottomToast(message = 'Welcome !') {
     setTimeout(function () {
         document.getElementById('snackbar').classList.remove("show");
     }, 3000);
+}
+
+
+
+
+var loadin_btn_elem;
+function loading_btn(this_elem = '') {
+    // return;
+    var xhr_loader = document.querySelectorAll('.loader-xhr');
+    if (xhr_loader.length > 0) {
+        xhr_loader[0].remove();
+        loadin_btn_elem.style.opacity = '1.0';
+        loadin_btn_elem.removeAttribute('disabled');
+    } else {
+        this_elem = document.getElementById(this_elem);
+        this_elem.setAttribute('disabled', true);
+        this_elem.style.opacity = '0.6';
+        this_elem.innerHTML += '<i class="fa fa-spinner fa-spin loader-xhr"></i>';
+        loadin_btn_elem = this_elem;
+    }
+    return;
 }
