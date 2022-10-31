@@ -7,6 +7,9 @@ var imgUpload = document.getElementById('img-upload');
 var openFullWorkspace = document.getElementById('open-full-workspace');
 
 
+let textArea_texts = [];
+
+
 var offCanvasClose_right = document.querySelector('.btn-right-close');
 offCanvasClose_right.onclick = function (e) {
     e.target.parentNode.parentNode.classList.remove('show');
@@ -192,7 +195,7 @@ openFullWorkspace.addEventListener('click', async (e) => {
     document.getElementById('offcanvasRight').classList.add('show');
 
 
-    showFullWorkspace();
+    renderFullWorkspace();
 });
 
 
@@ -209,24 +212,25 @@ imgUpload.addEventListener('submit', async (e) => {
 
 
 
-/**
- * 
- *  Shows all workspace editors in an 
- *  off-canvas from right.
- * 
- * ! It loads all the data from the front page 
- * ! workspaces and displays here in a little bit more 
- * ! big containers
- * 
- */
-function showFullWorkspace() {
-    let textAreas = Array.from(document.getElementsByClassName('workspace-textarea'));
-    let textArea_texts = [];
-
-    textAreas.map(textArea => textArea_texts.push(textArea.value));
-
-    renderFullWorkspace(textArea_texts);
+function saveWorkspace(element) {
+    textArea_texts[element.dataset.id] = element.value;
+    autoResize(element);
 }
+
+function autoResize(element) {
+    element.style.height = 'auto';
+
+    if (element.scrollHeight > 400) {
+        element.style.height = 400 + 'px';
+        return;
+    }
+    element.style.height = element.scrollHeight + 'px';
+}
+
+
+
+
+
 
 
 
@@ -237,12 +241,13 @@ function showFullWorkspace() {
  *  and adds the values into them
  * 
  */
-function renderFullWorkspace(textArea_texts) {
+function renderFullWorkspace() {
     var workspace_html = '';
 
     var i = 1;
     textArea_texts.forEach(textAreas => {
-         workspace_html += `<div class="row mt-30">
+        console.log(4444);
+        workspace_html += `<div class="row mt-30">
 
                             <div class="bd-clipboard">
                                 <button  onclick="copyToClipBoard(this)" id="copyToClipboard" type="button" class="btn-clipboard tooltip-custom" title=""
@@ -250,13 +255,13 @@ function renderFullWorkspace(textArea_texts) {
                                     <span class="tooltiptext tooltip-top">Copy to clipboard</span>
                                 </button>
 
-                                <a class="btn btn-rsm btn-index-textarea index-full-textarea btn-primary">${i++}</a>
+                                <a class="btn btn-rsm btn-index-textarea index-full-textarea btn-primary">${i}</a>
                                 <a onclick="addWorkSpace(this)" class="btn btn-rsm btn-add-textarea btn-outline-success">Add</a>
                                 <a onclick="removeWorkSpace(this)" class="btn btn-rsm btn-rem-textarea btn-outline-danger">Remove</a>
 
                             </div>
 
-                            <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text full-workspace-textarea" rows="4">${textAreas}</textarea>
+                            <textarea oninput="saveWorkspace(this)" data-id="${i++}" placeholder="Text workspace" class="image-text full-workspace-textarea" rows="4">${textAreas}</textarea>
 
                             <br>
                         </div>`;
@@ -271,6 +276,7 @@ function renderFullWorkspace(textArea_texts) {
 
 
 function addWorkSpace(element) {
+    let i = 1;
     let workspace_html = `<div class="row mt-30">
 
                             <div class="bd-clipboard">
@@ -285,7 +291,7 @@ function addWorkSpace(element) {
 
                             </div>
 
-                            <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text workspace-textarea" rows="4"></textarea>
+                            <textarea oninput="saveWorkspace(this)" data-id="${i++}" placeholder="Text workspace" class="image-text workspace-textarea" rows="4"></textarea>
 
                             <br>
                         </div>`;
@@ -298,7 +304,7 @@ function addWorkSpace(element) {
 }
 
 function removeWorkSpace(element) {
-    if (document.getElementsByClassName('index-small-textarea').length <= 3){
+    if (document.getElementsByClassName('index-small-textarea').length <= 3) {
         BottomToast('Minimum 3 workspace editors should be open')
         return;
     }
@@ -312,8 +318,9 @@ function resetTextareaCount() {
     let count_indexes = document.getElementsByClassName('index-small-textarea');
     for (var i = 0; i < count_indexes.length; i++) {
         count_indexes[i].innerText = i + 1;
-    } 
-    
+        count_indexes[i].parentElement.parentElement.querySelector('.workspace-textarea').dataset.id = i + 1;
+    }
+
     let count_workspace_indexes = document.getElementsByClassName('index-full-textarea');
     for (var i = 0; i < count_workspace_indexes.length; i++) {
         console.log(count_workspace_indexes[i]);

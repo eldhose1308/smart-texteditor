@@ -81,8 +81,8 @@
 
                         </div>
 
-                        <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text workspace-textarea"
-                            rows="4"></textarea>
+                        <textarea oninput="saveWorkspace(this)" data-id="1" placeholder="Text workspace"
+                            class="image-text workspace-textarea" rows="4"></textarea>
 
                         <br>
                     </div>
@@ -103,8 +103,8 @@
 
                         </div>
 
-                        <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text workspace-textarea"
-                            rows="4"></textarea>
+                        <textarea oninput="saveWorkspace(this)" data-id="2" placeholder="Text workspace"
+                            class="image-text workspace-textarea" rows="4"></textarea>
 
                         <br>
                     </div>
@@ -125,8 +125,8 @@
 
                         </div>
 
-                        <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text workspace-textarea"
-                            rows="4"></textarea>
+                        <textarea oninput="saveWorkspace(this)" data-id="3" placeholder="Text workspace"
+                            class="image-text workspace-textarea" rows="4"></textarea>
 
                         <br>
                     </div>
@@ -149,8 +149,8 @@
     <div class="offcanvas offcanvas-bottom h-50" data-bs-scroll="true" tabindex="-1" id="offcanvasBottom"
         aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header">
-            <button type="button" class="btn-close btn-bottom-close text-reset btn-close-offCanvas" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close btn-bottom-close text-reset btn-close-offCanvas"
+                data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body row" id="word-details">
 
@@ -195,8 +195,8 @@
     <div class="offcanvas offcanvas-end w-75" tabindex="-1" id="offcanvasRight" id="offcanvasRight"
         aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
-            <button type="button" class="btn-close btn-right-close text-reset btn-close-offCanvas" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close btn-right-close text-reset btn-close-offCanvas"
+                data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
 
@@ -252,22 +252,6 @@
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 
-
-<script>
-
-
-    function autoResize(element) {
-        element.style.height = 'auto';
-
-        if (element.scrollHeight > 400) {
-            element.style.height = 400 + 'px';
-            return;
-        }
-        element.style.height = element.scrollHeight + 'px';
-    }
-
-
-</script>
 
 
 </html>
