@@ -4,13 +4,21 @@ const dictionary_loader = document.getElementById('dictionary-loader');
 const codeEditors = document.getElementById('codeEditor');
 var lineCounter = document.getElementById('lineCounter');
 var imgUpload = document.getElementById('img-upload');
+var openFullWorkspace = document.getElementById('open-full-workspace');
 
 
-var offCanvasClose = document.querySelector('.btn-close');
-offCanvasClose.onclick = function (e) {
+var offCanvasClose_right = document.querySelector('.btn-right-close');
+offCanvasClose_right.onclick = function (e) {
     e.target.parentNode.parentNode.classList.remove('show');
 }
 
+var offCanvasClose_bottom = document.querySelector('.btn-bottom-close');
+offCanvasClose_bottom.onclick = function (e) {
+    e.target.parentNode.parentNode.classList.remove('show');
+}
+
+
+// document.getElementById('offcanvasRight').classList.add('show');
 
 
 
@@ -179,6 +187,16 @@ function copyToClipBoard(element) {
 
 
 
+openFullWorkspace.addEventListener('click', async (e) => {
+    e.preventDefault();
+    document.getElementById('offcanvasRight').classList.add('show');
+
+
+    showFullWorkspace();
+});
+
+
+
 imgUpload.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -187,6 +205,69 @@ imgUpload.addEventListener('submit', async (e) => {
     loading_btn();
 
 });
+
+
+
+
+/**
+ * 
+ *  Shows all workspace editors in an 
+ *  off-canvas from right.
+ * 
+ * ! It loads all the data from the front page 
+ * ! workspaces and displays here in a little bit more 
+ * ! big containers
+ * 
+ */
+function showFullWorkspace() {
+    let textAreas = Array.from(document.getElementsByClassName('workspace-textarea'));
+    let textArea_texts = [];
+
+    textAreas.map(textArea => textArea_texts.push(textArea.value));
+
+    renderFullWorkspace(textArea_texts);
+}
+
+
+
+
+/**
+ * 
+ *  Create workspace editors in right off-canvas
+ *  and adds the values into them
+ * 
+ */
+function renderFullWorkspace(textArea_texts) {
+    var workspace_html = '';
+
+    var i = 1;
+    textArea_texts.forEach(textAreas => {
+         workspace_html += `<div class="row mt-30">
+
+                            <div class="bd-clipboard">
+                                <button  onclick="copyToClipBoard(this)" id="copyToClipboard" type="button" class="btn-clipboard tooltip-custom" title=""
+                                    data-bs-original-title="Copy to clipboard">Copy
+                                    <span class="tooltiptext tooltip-top">Copy to clipboard</span>
+                                </button>
+
+                                <a class="btn btn-rsm btn-index-textarea index-full-textarea btn-primary">${i++}</a>
+                                <a onclick="addWorkSpace(this)" class="btn btn-rsm btn-add-textarea btn-outline-success">Add</a>
+                                <a onclick="removeWorkSpace(this)" class="btn btn-rsm btn-rem-textarea btn-outline-danger">Remove</a>
+
+                            </div>
+
+                            <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text full-workspace-textarea" rows="4">${textAreas}</textarea>
+
+                            <br>
+                        </div>`;
+
+    });
+
+    document.getElementById('full-workspaces').innerHTML = workspace_html;
+
+}
+
+
 
 
 function addWorkSpace(element) {
@@ -198,13 +279,13 @@ function addWorkSpace(element) {
                                     <span class="tooltiptext tooltip-top">Copy to clipboard</span>
                                 </button>
 
-                                <a class="btn btn-rsm btn-index-textarea btn-primary">1</a>
+                                <a class="btn btn-rsm btn-index-textarea index-small-textarea btn-primary">1</a>
                                 <a onclick="addWorkSpace(this)" class="btn btn-rsm btn-add-textarea btn-outline-success">Add</a>
                                 <a onclick="removeWorkSpace(this)" class="btn btn-rsm btn-rem-textarea btn-outline-danger">Remove</a>
 
                             </div>
 
-                            <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text" rows="4"></textarea>
+                            <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text workspace-textarea" rows="4"></textarea>
 
                             <br>
                         </div>`;
@@ -217,17 +298,26 @@ function addWorkSpace(element) {
 }
 
 function removeWorkSpace(element) {
-    if (document.getElementsByClassName('btn-index-textarea').length <= 3)
+    if (document.getElementsByClassName('index-small-textarea').length <= 3){
+        BottomToast('Minimum 3 workspace editors should be open')
         return;
+    }
     element.parentElement.parentElement.remove();
     resetTextareaCount();
 }
 
 
+
 function resetTextareaCount() {
-    let count_indexes = document.getElementsByClassName('btn-index-textarea');
+    let count_indexes = document.getElementsByClassName('index-small-textarea');
     for (var i = 0; i < count_indexes.length; i++) {
         count_indexes[i].innerText = i + 1;
+    } 
+    
+    let count_workspace_indexes = document.getElementsByClassName('index-full-textarea');
+    for (var i = 0; i < count_workspace_indexes.length; i++) {
+        console.log(count_workspace_indexes[i]);
+        count_workspace_indexes[i].innerText = i + 1;
     }
 }
 

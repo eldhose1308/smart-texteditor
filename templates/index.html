@@ -73,7 +73,7 @@
                                 <span class="tooltiptext tooltip-top">Copy to clipboard</span>
                             </button>
 
-                            <a class="btn btn-rsm btn-index-textarea btn-primary">1</a>
+                            <a class="btn btn-rsm btn-index-textarea index-small-textarea btn-primary">1</a>
                             <a onclick="addWorkSpace(this)"
                                 class="btn btn-rsm btn-add-textarea btn-outline-success">Add</a>
                             <a onclick="removeWorkSpace(this)"
@@ -81,7 +81,7 @@
 
                         </div>
 
-                        <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text"
+                        <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text workspace-textarea"
                             rows="4"></textarea>
 
                         <br>
@@ -95,7 +95,7 @@
                                 <span class="tooltiptext tooltip-top">Copy to clipboard</span>
                             </button>
 
-                            <a class="btn btn-rsm btn-index-textarea btn-primary">2</a>
+                            <a class="btn btn-rsm btn-index-textarea index-small-textarea btn-primary">2</a>
                             <a onclick="addWorkSpace(this)"
                                 class="btn btn-rsm btn-add-textarea btn-outline-success">Add</a>
                             <a onclick="removeWorkSpace(this)"
@@ -103,7 +103,7 @@
 
                         </div>
 
-                        <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text"
+                        <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text workspace-textarea"
                             rows="4"></textarea>
 
                         <br>
@@ -117,7 +117,7 @@
                                 <span class="tooltiptext tooltip-top">Copy to clipboard</span>
                             </button>
 
-                            <a class="btn btn-rsm btn-index-textarea btn-primary">3</a>
+                            <a class="btn btn-rsm btn-index-textarea index-small-textarea btn-primary">3</a>
                             <a onclick="addWorkSpace(this)"
                                 class="btn btn-rsm btn-add-textarea btn-outline-success">Add</a>
                             <a onclick="removeWorkSpace(this)"
@@ -125,7 +125,7 @@
 
                         </div>
 
-                        <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text"
+                        <textarea oninput="autoResize(this)" placeholder="Text workspace" class="image-text workspace-textarea"
                             rows="4"></textarea>
 
                         <br>
@@ -149,7 +149,7 @@
     <div class="offcanvas offcanvas-bottom h-50" data-bs-scroll="true" tabindex="-1" id="offcanvasBottom"
         aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header">
-            <button type="button" class="btn-close text-reset btn-close-offCanvas" data-bs-dismiss="offcanvas"
+            <button type="button" class="btn-close btn-bottom-close text-reset btn-close-offCanvas" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
         </div>
         <div class="offcanvas-body row" id="word-details">
@@ -185,10 +185,66 @@
     <!---Bottom OffCanvas-->
 
 
+
+
+
+
+
+    <!---Right OffCanvas-->
+
+    <div class="offcanvas offcanvas-end w-75" tabindex="-1" id="offcanvasRight" id="offcanvasRight"
+        aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close btn-right-close text-reset btn-close-offCanvas" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+
+            <div id="full-workspaces" class="row">
+            </div>
+
+
+
+        </div>
+    </div>
+    <!---Right OffCanvas-->
+
+
+
+
+
+    <!---Floating Buttons-->
+
+    <div id="container-floating">
+        <div class="nd4 nds"><img class="reminder">
+            <p class="letter">C</p>
+        </div>
+
+        <div class="nd3 nds"><img class="reminder"
+                src="//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/ic_reminders_speeddial_white_24dp.png" />
+        </div>
+
+        <div id="open-full-workspace" class="nd1 nds">
+            <p class="letter">W</p>
+        </div>
+
+        <div id="floating-button">
+            <p class="plus">+</p>
+            <img class="edit" src="https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/bt_compose2_1x.png">
+        </div>
+    </div>
+
+
+    <!---Floating Buttons-->
+
+
+
+
+
+
     <div id="snackbar" class="">Message</div>
 
 </body>
-
 
 
 
